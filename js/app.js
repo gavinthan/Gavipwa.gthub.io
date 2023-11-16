@@ -9,11 +9,11 @@
 
   var logTarget = document.getElementById('target');
   var valueInput = document.getElementById('value');
-
+  }
   var reloadInputValue = function () {
   console.log(selectedEngine, window[selectedEngine].getItem('myKey'))
     valueInput.value = window[selectedEngine].getItem('myKey') || '';
-  }
+  
   
   var selectEngine = function (engine) {
     selectedEngine = engine;
