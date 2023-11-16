@@ -71,12 +71,7 @@ async function writeFile() {
   
   target.innerHTML = 'Test content written to ' + file.name + '.';
 }
-HTML
-<div class="columns">
-  <div class="column">
-    <button class="btn-file">
-      Choose some files to read<br>(File API) <input type="file" onchange="readFiles(this.files)" multiple>
-    </button>
+  </button>
       
 
   function handleChange(change) {
