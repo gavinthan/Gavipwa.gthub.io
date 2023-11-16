@@ -104,18 +104,7 @@ async function writeFile() {
 
   window.addEventListener('storage', onStorageChanged);
 }
-HTML
-<p>
-  <label>Engine</label>
-</p>
-<div role="group" id="selectEngine">
-  <input type="radio" name="engine" value="localStorage" checked/> Persistent Storage
-  <input type="radio" name="engine" value="sessionStorage"/> Per-Session Storage
-</div>
 
-<p>
-  <label for="value">Value for <code>myKey</code></label>
-  <input type="text" id="value">
 
 
     
