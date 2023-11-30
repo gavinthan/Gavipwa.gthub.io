@@ -2,8 +2,14 @@
   <script src="js/Batterie.js"></script> 
 </head>
 <body>
+
   
-  <p>Initial battery status was <b id="charging">unknown</b>, charging time <b id="chargingTime">unknown</b>, discharging time <b id="dischargingTime">unknown</b>, level <b id="level">unknown</b>.</p>
+  
+ <svg width="100" height="100">
+    <circle r="40" cx="50" cy="50" fill="gray" />
+    <circle r="40" cx="50" cy="50" fill="green" id="batteryLevel" />
+  </svg>
+  <p>Initial battery status was <b id="charging">unknown</b>, Battery percentage <b id="batteryStatus">not available</b> charging time <b id="chargingTime">unknown</b>, discharging time <b id="dischargingTime">unknown</b>, level <b id="level">unknown</b>.</p>
 
 <div id="target"></div>
 </body>
