@@ -40,6 +40,24 @@ if ('getBattery' in navigator || ('battery' in navigator && 'Promise' in window)
     battery.addEventListener('dischargingtimechange', onDischargingTimeChange);
     battery.addEventListener('levelchange', onLevelChange);
   });
+
+  function updateBatteryStatus(battery) {
+    const batteryStatus = document.getElementById('batteryStatus');
+    batteryStatus.textContent = `Battery level: ${battery.level * 100}% charged, ` +
+      (battery.charging ? 'charging' : 'not charging');
+  }
+
+  navigator.getBattery().then(function(battery) {
+    updateBatteryStatus(battery);
+
+    battery.addEventListener('levelchange', function() {
+      updateBatteryStatus(battery);
+    });
+
+    battery.addEventListener('chargingchange', function() {
+      updateBatteryStatus(battery);
+    });
+  });
 }
 
 
