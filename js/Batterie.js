@@ -1,64 +1,50 @@
-if ('getBattery' in navigator || ('battery' in navigator && 'Promise' in window)) {
-  var target = document.getElementById('target');
 
-  function handleChange(change) {
-    var timeBadge = new Date().toTimeString().split(' ')[0];
-    var newState = document.createElement('p');
-    newState.innerHTML = '' + timeBadge + ' ' + change + '.';
-    target.appendChild(newState);
-  }
-  
-  function onChargingChange() {
-    handleChange('Battery charging changed to ' + (this.charging ? 'charging' : 'discharging') + '')
-  }
-  function onChargingTimeChange() {
-    handleChange('Battery charging time changed to ' + this.chargingTime + ' s');
-  }
-  function onDischargingTimeChange() {
-    handleChange('Battery discharging time changed to ' + this.dischargingTime + ' s');
-  }
-  function onLevelChange() {
-    handleChange('Battery level changed to ' + this.level + '');
-  }
+// Array zum Speichern von Kosten
+let expenses = [];
 
-  var batteryPromise;
-  
-  if ('getBattery' in navigator) {
-    batteryPromise = navigator.getBattery();
+// Funktion zum Hinzufügen von Kosten
+function addExpense() {
+  const description = document.getElementById('description').value;
+  const date = document.getElementById('date').value;
+  const category = document.getElementById('category').value;
+  const amount = parseFloat(document.getElementById('amount').value);
+
+  if (description && date && category && !isNaN(amount)) {
+    expenses.push({ description, date, category, amount });
+    updateTable();
+    clearForm();
   } else {
-    batteryPromise = Promise.resolve(navigator.battery);
+    alert('Bitte füllen Sie alle Felder korrekt aus.');
   }
-  
-  batteryPromise.then(function (battery) {
-    document.getElementById('charging').innerHTML = battery.charging ? 'charging' : 'discharging';
-    document.getElementById('chargingTime').innerHTML = battery.chargingTime + ' s';
-    document.getElementById('dischargingTime').innerHTML = battery.dischargingTime + ' s';
-    document.getElementById('level').innerHTML = battery.level;
-    
-    battery.addEventListener('chargingchange', onChargingChange);
-    battery.addEventListener('chargingtimechange', onChargingTimeChange);
-    battery.addEventListener('dischargingtimechange', onDischargingTimeChange);
-    battery.addEventListener('levelchange', onLevelChange);
-  });
+}
 
-  function updateBatteryStatus(battery) {
-    const batteryStatus = document.getElementById('batteryStatus');
-    batteryStatus.textContent = `Battery level: ${battery.level * 100}% charged, ` +
-      (battery.charging ? 'charging' : 'not charging');
+// Funktion zum Aktualisieren der Kostenübersicht
+function updateTable() {
+  const table = document.getElementById('expenseTable');
+  // Lösche alle vorhandenen Zeilen
+  while (table.rows.length > 1) {
+    table.deleteRow(1);
   }
 
-  navigator.getBattery().then(function(battery) {
-    updateBatteryStatus(battery);
+  let totalAmount = 0;
 
-    battery.addEventListener('levelchange', function() {
-      updateBatteryStatus(battery);
-    });
+  // Füge neue Zeilen hinzu
+  expenses.forEach(expense => {
+    const row = table.insertRow(-1);
+    row.insertCell(0).textContent = expense.description;
+    row.insertCell(1).textContent = expense.date;
+    row.insertCell(2).textContent = expense.category;
+    row.insertCell(3).textContent = expense.amount.toFixed(2);
 
-    battery.addEventListener('chargingchange', function() {
-      updateBatteryStatus(battery);
-    });
+    totalAmount += expense.amount;
+    row.insertCell(4).textContent = totalAmount.toFixed(2);
   });
 }
 
-
- 
+// Funktion zum Zurücksetzen des Eingabeformulars
+function clearForm() {
+  document.getElementById('description').value = '';
+  document.getElementById('date').value = '';
+  document.getElementById('category').value = '';
+  document.getElementById('amount').value = '';
+}
