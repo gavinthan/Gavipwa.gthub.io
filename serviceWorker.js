@@ -36,20 +36,7 @@ return seif.clients.claim();
 });
   
 
-if ('serviceWorker' in navigator) 
-  navigator.serviceWorker
-register (' •/service-worker.js')
-.then(function() { console.log('Service Worker Registered' ): }):
 
-var cacheName = 'weatherPWA-step-6-1';
-var filesToCache = I];
-self addEventListener ('install', function(e) ( console. log(' [ServiceWorker] Install'); e-waitUntil(
-caches.open(cacheName) .then(function(cache)
-console. log(' [ServiceWorker] Caching app shell');
-return cache.addAl](filesToCache);
-})
-) ;
-｝）
 
 
 self.addEventListener("install", installEvent => {
