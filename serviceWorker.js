@@ -15,6 +15,43 @@ const assets = [
   "/images/coffee9.jpg"
 ];
 
+self .addEventListener(activate ,function(e)
+console. log('(serviceWorker] Activate'):
+));
+
+self .addEventListener('activate',function (e) {
+console. log(' [ServiceWorker] Activate');
+e.waitUntil(
+caches.keys() .then(function(keyList) 1
+return Promise.all(keyList.map(function(key) {
+if（key ！== cacheName）｛
+console. log(' [ServiceWorker] Removing old cache, key):
+return caches.delete(key);
+}
+                               }));
+})
+);
+                                                           
+return seif.clients.claim();
+});
+  
+
+if ('serviceWorker' in navigator) 
+  navigator.serviceWorker
+register (' •/service-worker.js')
+.then(function() { console.log('Service Worker Registered' ): }):
+
+var cacheName = 'weatherPWA-step-6-1';
+var filesToCache = I];
+self addEventListener ('install', function(e) ( console. log(' [ServiceWorker] Install'); e-waitUntil(
+caches.open(cacheName) .then(function(cache)
+console. log(' [ServiceWorker] Caching app shell');
+return cache.addAl](filesToCache);
+})
+) ;
+｝）
+
+
 self.addEventListener("install", installEvent => {
   installEvent.waitUntil(
     caches.open(staticDevCoffee).then(cache => {
