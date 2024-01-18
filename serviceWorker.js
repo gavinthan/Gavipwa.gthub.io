@@ -19,23 +19,7 @@ self .addEventListener(activate ,function(e)
 console. log('(serviceWorker] Activate'):
 ));
 
-self .addEventListener('activate',function (e) {
-console. log(' [ServiceWorker] Activate');
-e.waitUntil(
-caches.keys() .then(function(keyList) 1
-return Promise.all(keyList.map(function(key) {
-if（key ！== cacheName）｛
-console. log(' [ServiceWorker] Removing old cache, key):
-return caches.delete(key);
-}
-                               }));
-})
-);
-                                                           
-return seif.clients.claim();
-});
   
-
 
 
 
@@ -43,6 +27,8 @@ self.addEventListener("install", installEvent => {
   installEvent.waitUntil(
     caches.open(staticDevCoffee).then(cache => {
       cache.addAll(assets);
+      console. log('(serviceWorker] Install'):
+      
     })
   );
 });
